@@ -1,10 +1,8 @@
 import { createSlice, CreateSliceOptions } from '@reduxjs/toolkit';
-import { CuratedPhotoOption } from '../customHooks/useGetCuratedPhoto/useGetCuratedPhoto';
-import { PhotoDetailOption } from '../customHooks/useGetPhotoDetail/useGetPhotoDetail';
 interface PhotoSlice extends CreateSliceOptions {
   name : string
   initialState : PhotosBlockOption | PhotosDetailBlockOption | PhotosSearchBlockOption
-  reducers : {}
+  reducers : any
 }
 interface PhotosBlockItem {
   photos : Array<any>
@@ -34,6 +32,43 @@ interface PhotosSearchBlockOption{
   photoSearchBlock : PhotosSearchBlockItem
 }
 
+//Action inteface
+interface CuratedPhotoItems{
+  loading : boolean
+  next_page : number
+  dataPhotos : any
+  removeCopyArray : boolean
+}
+interface CuratedPhotoAction{
+  payload: CuratedPhotoItems;
+}
+
+interface PhotoDetailItems{
+  loading : boolean
+  dataPhotoDetails : Array<any>
+}
+export interface PhotoDetailAction{
+  payload : PhotoDetailItems,
+}
+interface PhotoSearchItems{
+  loading : boolean
+  query : string
+  dataPhotosResult : any
+  totalResults : number
+  removeCopyArray : boolean
+}
+interface PhotoSearchAction{
+  payload : PhotoSearchItems
+}
+
+interface StateItems{
+  photosBlock : {}
+  photosDetailsBlock : {}
+  photoSearchBlock : {}
+}
+interface StateInterface {
+  photos :StateItems
+}
 export const photoSlice = createSlice(<PhotoSlice>{
   name: 'photo',
   initialState : {
@@ -55,7 +90,7 @@ export const photoSlice = createSlice(<PhotoSlice>{
     }
   },
   reducers : {
-    addPhotos: (state:PhotosBlockOption,action:CuratedPhotoOption) => {
+    addPhotos: (state:PhotosBlockOption,action:CuratedPhotoAction) => {
       state.photosBlocks.loadingPhotos = action.payload.loading
       state.photosBlocks.nextPage = action.payload.dataPhotos?.next_page
       if(action.payload.removeCopyArray){
@@ -64,41 +99,25 @@ export const photoSlice = createSlice(<PhotoSlice>{
       }
       state.photosBlocks.photos = [...state.photosBlocks.photos,action.payload?.dataPhotos?.photos || []]
     },
-    addPhotoDetails : (state:PhotosDetailBlockOption,action:PhotoDetailOption)=>{
+    addPhotoDetails : (state:PhotosDetailBlockOption,action:PhotoDetailAction)=>{
       state.photosDetailsBlock.loadingPhotos = action.payload.loading
       state.photosDetailsBlock.photos = action.payload.dataPhotoDetails || []
     },
+    addResultSearch : (state:PhotosSearchBlockOption,action:PhotoSearchAction)=>{
+      state.photoSearchBlock.loadingPhotos = action.payload.loading
+      state.photoSearchBlock.query = action.payload.query
+      state.photoSearchBlock.nextPage  = action.payload.dataPhotosResult?.next_page
+      state.photoSearchBlock.totalResults = action.payload.totalResults
+      if(action.payload.removeCopyArray){
+        state.photoSearchBlock.photos.length = 0
+      }
+      state.photoSearchBlock.photos = [...state.photoSearchBlock.photos,action.payload?.dataPhotosResult?.photos || []]
+    }
   },
-  
-  // reducers: {
-  //   addPhotos: (state,action) => {
-  //     state.photosBlock.loadingPhotos = action.payload.loading
-  //     state.photosBlock.nextPage = action.payload.dataPhotos?.next_page
-  //     if(action.payload.removeCopyArray){
-  //       state.photosBlock.photos.length = 0
-  //       return
-  //     }
-  //     state.photosBlock.photos = [...state.photosBlock.photos,action.payload?.dataPhotos?.photos || []]
-  //   },
-  //   addPhotoDetails : (state,action)=>{
-  //     state.photosDetailsBlock.loadingPhotos = action.payload.loading
-  //     state.photosDetailsBlock.photos = action.payload.dataPhotoDetails || []
-  //   },
-  //   addResultSearch : (state,action)=>{
-  //     state.photoSearchBlock.loadingPhotos = action.payload.loading
-  //     state.photoSearchBlock.query = action.payload.query
-  //     state.photoSearchBlock.nextPage  = action.payload.dataPhotosResult?.next_page
-  //     state.photoSearchBlock.totalResults = action.payload.totalResults
-  //     if(action.payload.removeCopyArray){
-  //       state.photoSearchBlock.photos.length = 0
-  //     }
-  //     state.photoSearchBlock.photos = [...state.photoSearchBlock.photos,action.payload?.dataPhotosResult?.photos || []]
-  //   }
-  // },
 });
 
-// export const { addPhotos,addPhotoDetails,addResultSearch } = photoSlice.actions
-// export const selectPhotos = state => state.photos.photosBlock
-// export const selectPhotoDetailsBlock = state => state.photos.photosDetailsBlock
-// export const selectPhotoSearchBlock = state => state.photos.photoSearchBlock
+export const { addPhotos,addPhotoDetails,addResultSearch } = photoSlice.actions
+export const selectPhotos = (state:StateInterface) => state.photos.photosBlock
+export const selectPhotoDetailsBlock = (state:StateInterface) => state.photos.photosDetailsBlock
+export const selectPhotoSearchBlock = (state:StateInterface) => state.photos.photoSearchBlock
 export default photoSlice.reducer;
