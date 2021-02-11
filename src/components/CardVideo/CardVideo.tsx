@@ -4,6 +4,7 @@ import { IconButton } from '@material-ui/core'
 import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
 import { CardVideoOptions } from '../VideosContainer/VideosContainer'
+import Link from 'next/link'
 const CardVideoStyled = styled.div`
   margin-bottom: 10px;
   flex-grow: 1;
@@ -35,15 +36,16 @@ const PlayBox = styled.div`
   }
 `
 function CardVideo({ id, url, image }: CardVideoOptions) {
-  const handleDetail = () => {}
   return (
     <CardVideoStyled>
       <Wrapper>
         <Image src={image} alt={image} />
         <PlayBox>
-          <IconButton onClick={handleDetail}>
-            <PlayCircleOutlineIcon className='CardVideo__playIcon' />
-          </IconButton>
+          <Link href={`/video-detail/${id}`}>
+            <IconButton>
+              <PlayCircleOutlineIcon className='CardVideo__playIcon' />
+            </IconButton>
+          </Link>
         </PlayBox>
       </Wrapper>
     </CardVideoStyled>

@@ -39,13 +39,6 @@ interface VideoActionItems{
 interface VideoAction{
   payload : VideoActionItems
 }
-//addVideoDetails
-interface VideoDetailItems{
-  videoDetail : any
-}
-interface VideoDetailAction{
-  payload : VideoDetailItems
-}
 //AddVideoSearch
 interface VideoSearchItems{
   loading : boolean
@@ -92,9 +85,6 @@ export const videoSlice = createSlice(<VideoSlice>{
       }
       state.videosBlock.videos = [...state.videosBlock.videos,action.payload?.dataVideo?.videos || []]
     },
-    addVideoDetails : (state:VideosDetailsOption,action:VideoDetailAction)=>{
-      state.videosDetails = action.payload.videoDetail
-    },
     addVideoSearch : (state:VideoSearchBlockOption,action:VideoSearchAction)=>{
       state.videoSearchBlock.loadingVideo = action.payload.loading
       state.videoSearchBlock.totalResult = action.payload.dataVideo?.total_results
@@ -108,7 +98,7 @@ export const videoSlice = createSlice(<VideoSlice>{
   },
 });
 
-export const { addVideos,addVideoDetails,addVideoSearch } = videoSlice.actions
+export const { addVideos,addVideoSearch } = videoSlice.actions
 export const selectVideos = (state:StateInterface) => state.videos.videosBlock
 export const selectVideoDetail = (state:StateInterface) => state.videos.videosDetails
 export const selectVideoSearchBlock = (state:StateInterface) => state.videos.videoSearchBlock
