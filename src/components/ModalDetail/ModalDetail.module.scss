@@ -1,0 +1,70 @@
+.ModalDetail {
+  .loadingPhotos {
+    margin-bottom: 5px;
+  }
+  .close {
+    .close_icon {
+      border: 1.5px solid #1e88e5;
+    }
+    margin-bottom: 10px;
+  }
+  .wrapper {
+    display: flex;
+    .imageContainer {
+      max-width: 320px;
+    }
+    .buttonPreview {
+      margin: 5px;
+      border: 1px solid #76ff03;
+      border-radius: 5px;
+      overflow: 0;
+      color: #cfd8dc;
+      background-color: transparent;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      padding-right: 5px;
+      padding-left: 5px;
+      font-size: 16px;
+      &:hover {
+        transition: all 0.3s ease;
+        background-color: #039be5;
+        color: #eceff1;
+      }
+      &:disabled,
+      &[disabled] {
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
+      }
+    }
+    .buttonDownload {
+      margin: 5px;
+      border: 1px solid #039be5;
+      border-radius: 5px;
+      overflow: 0;
+      color: #cfd8dc;
+      background-color: transparent;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      padding-right: 5px;
+      padding-left: 5px;
+      font-size: 16px;
+      &:hover {
+        transition: all 0.3s ease;
+        background-color: #039be5;
+        color: #eceff1;
+      }
+      &:disabled,
+      &[disabled] {
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
+      }
+    }
+  }
+  @media (min-width: 320px) and (max-width: 700px) {
+    .wrapper {
+      flex-direction: column;
+    }
+  }
+}
