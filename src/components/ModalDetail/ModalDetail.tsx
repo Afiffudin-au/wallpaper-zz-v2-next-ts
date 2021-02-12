@@ -34,7 +34,7 @@ function ModalDetail({ handleClose }: any) {
           <LinearProgress color='primary' />
         </div>
       )}
-      <div className={styles.icon}>
+      <div className={styles.close}>
         <IconButton onClick={handleClose} className={styles.close_icon}>
           <CloseIcon style={{ color: 'white' }} />
         </IconButton>

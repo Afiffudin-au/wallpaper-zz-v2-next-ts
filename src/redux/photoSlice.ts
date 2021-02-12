@@ -106,6 +106,7 @@ export const photoSlice = createSlice(<PhotoSlice>{
     },
     addPhotoDetails: (state: PhotosDetailBlockOption, action: PhotoDetailAction) => {
       state.photosDetailsBlocks.loadingPhotos = action.payload.loading
+     
       state.photosDetailsBlocks.photos = action.payload.dataPhotoDetails || []
     },
     addResultSearch: (state: PhotosSearchBlockOption, action: PhotoSearchAction) => {
@@ -115,6 +116,9 @@ export const photoSlice = createSlice(<PhotoSlice>{
       state.photoSearchBlocks.totalResults = action.payload.totalResults
       if (action.payload.removeCopyArray) {
         state.photoSearchBlocks.photos.length = 0
+      }
+      if(action.payload?.dataPhotosResult?.photos === undefined){
+        return
       }
       state.photoSearchBlocks.photos = [...state.photoSearchBlocks.photos, action.payload?.dataPhotosResult?.photos || []]
     }

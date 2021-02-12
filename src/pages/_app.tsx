@@ -49,7 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           content='width=device-width, initial-scale=1, shrink-to-fit=no'
         />
       </Head>
-      {loading && <LinearProgress color='primary' />}
+      {loading && <LinearProgress color='secondary' />}
       <Component {...pageProps} />
     </Provider>
   )

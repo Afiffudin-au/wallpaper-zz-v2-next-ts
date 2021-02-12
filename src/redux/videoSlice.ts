@@ -96,6 +96,9 @@ export const videoSlice = createSlice(<VideoSlice>{
         state.videoSearchBlock.videos.length = 0
         return
       } 
+      if(action.payload?.dataVideo?.videos === undefined){
+        return
+      }
       state.videoSearchBlock.videos = [...state.videoSearchBlock.videos,action.payload?.dataVideo?.videos || []]
     }
   },
