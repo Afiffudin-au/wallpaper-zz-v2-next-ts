@@ -14,8 +14,8 @@ interface PhotosBlockOption {
 }
 
 //photosDetailsBlocks
-interface PhotosDetailBlockItem {
-  photos: Array<any>,
+export interface PhotosDetailBlockItem {
+  photos: any,
   loadingPhotos: null | boolean
 }
 interface PhotosDetailBlockOption {
@@ -23,7 +23,7 @@ interface PhotosDetailBlockOption {
 }
 
 //photoSearchBlocks
-interface PhotosSearchBlockItem {
+export interface PhotosSearchBlockItem {
   photos: Array<any>,
   loadingPhotos: boolean  | null,
   nextPage: number,

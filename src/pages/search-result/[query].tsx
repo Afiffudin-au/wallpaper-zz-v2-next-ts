@@ -1,51 +1,73 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { createClient } from 'pexels'
 import styles from './search-result.module.scss'
 import { CardPhotoType } from '../../components/PhotosContainer/PhotosContainer'
 import CardPhoto from '../../components/CardPhoto/CardPhoto'
 import Navbar from '../../components/Navbar/Navbar'
+import { useGetSearchPhotos } from '../../customHooks/useSearchPhoto/useSearchPhoto'
+import { useSelector } from 'react-redux'
+import {
+  selectPhotoSearchBlock,
+  PhotosSearchBlockItem,
+} from '../../redux/photoSlice'
+import { LinearProgress } from '@material-ui/core'
 const client = createClient(
   '563492ad6f9170000100000170236dd5ebbc4d13936b1f6d2e44461c'
 )
-function SearchResult({ results }: any) {
-  console.log(results)
+function SearchResult({ results, queryProps }: any) {
+  const [pageNumber, setPageNumber] = useState<number>(1)
+  const { getSearchPhotos } = useGetSearchPhotos()
+  const {
+    loadingPhotos,
+    nextPage,
+    photos,
+    query,
+    totalResults,
+  }: Partial<PhotosSearchBlockItem> = useSelector(selectPhotoSearchBlock)
+  useEffect(() => {
+    setPageNumber(1)
+  }, [queryProps])
+  useEffect(() => {
+    getSearchPhotos(queryProps || query, pageNumber)
+  }, [pageNumber])
   return (
     <>
       <Navbar />
       <div className={styles.SearchPhotos}>
-        {/* {totalResults === 0 && <p>Sorry We Cannot Find...</p>} */}
+        {totalResults === 0 && <p>Sorry We Cannot Find...</p>}
         <div className={styles.SearchPhotos__grid}>
-          {/* {photos?.map((photo) =>
-          photo.map((photo) => (
-            <div key={photo.id}>
-              <MemoizedChildComponent
-                id={photo.id}
-                url={photo.url}
-                imgPortrait={photo.src.portrait}
-              />
-            </div>
-          ))
-        )} */}
-          {results.photos.map((photo: CardPhotoType, index: number) => (
-            <div key={photo.id}>
-              <MemoizedChildComponent
-                id={photo.id}
-                url={photo.url}
-                imgPortrait={photo?.src?.portrait}
-              />
-            </div>
-          ))}
+          {pageNumber > 1
+            ? photos?.map((photo) =>
+                photo.map((photo: CardPhotoType) => (
+                  <div key={photo.id}>
+                    <MemoizedChildComponent
+                      id={photo.id}
+                      url={photo.url}
+                      imgPortrait={photo?.src?.portrait}
+                    />
+                  </div>
+                ))
+              )
+            : results.photos.map((photo: CardPhotoType, index: number) => (
+                <div key={photo.id}>
+                  <MemoizedChildComponent
+                    id={photo.id}
+                    url={photo.url}
+                    imgPortrait={photo?.src?.portrait}
+                  />
+                </div>
+              ))}
         </div>
         <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
-          {/* {loadingPhotos && <LinearProgress color='secondary' />} */}
+          {loadingPhotos && <LinearProgress color='secondary' />}
         </div>
-        {/* {nextPage && (
-        <button
-          className={styles.button_increase}
-          onClick={() => setPageNumber((current) => current + 1)}>
-          Load More...
-        </button>
-      )} */}
+        {nextPage && (
+          <button
+            className={styles.button_increase}
+            onClick={() => setPageNumber((current) => current + 1)}>
+            Load More...
+          </button>
+        )}
       </div>
     </>
   )
@@ -61,13 +83,18 @@ export const getServerSideProps = async ({ params }: any) => {
     .then((photos) => {
       return photos
     })
-    .catch((err: any) => {
-      alert(err)
+    .catch((err) => {
+      return false
     })
-  console.log(results)
+  if (!results) {
+    return {
+      notFound: true,
+    }
+  }
   return {
     props: {
       results,
+      queryProps: params.query,
     },
   }
 }

@@ -5,11 +5,16 @@ import styles from './ModalDetail.module.scss'
 import CloseIcon from '@material-ui/icons/Close'
 import { useSelector } from 'react-redux'
 import { LinearProgress } from '@material-ui/core'
-import { selectPhotoDetailsBlock } from '../../redux/photoSlice'
+import {
+  selectPhotoDetailsBlock,
+  PhotosDetailBlockItem,
+} from '../../redux/photoSlice'
 import { useGetDownloadPhoto } from '../../customHooks/useGetDownloadPhoto/useGetDownloadPhoto'
 function ModalDetail({ handleClose }: any) {
   const [previewUrl, setPreview] = useState<string>('')
-  const { photos, loadingPhotos }: any = useSelector(selectPhotoDetailsBlock)
+  const { photos, loadingPhotos }: Partial<PhotosDetailBlockItem> = useSelector(
+    selectPhotoDetailsBlock
+  )
   const classes = useStylesModal()
   const { getDownloadPhoto, loadingDownload } = useGetDownloadPhoto()
   const handlePreview = (url: string) => {

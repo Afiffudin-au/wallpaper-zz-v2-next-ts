@@ -6,8 +6,13 @@ import CardPhoto from '../CardPhoto/CardPhoto'
 import styled from 'styled-components'
 import { useGetCuratedPhoto } from '../../customHooks/useGetCuratedPhoto/useGetCuratedPhoto'
 import { useSelector } from 'react-redux'
-import { selectPhotosBlocks } from '../../redux/photoSlice'
+import {
+  addPhotos,
+  PhotosBlockItem,
+  selectPhotosBlocks,
+} from '../../redux/photoSlice'
 import styles from './PhotosContainer.module.scss'
+import { useAppDispatch } from '../../store/store'
 const PhotoContainer = styled.div`
   .backTop {
     color: rgb(88, 104, 243);
@@ -52,12 +57,22 @@ export interface CardPhotoType {
   src?: Portrait
 }
 export default function PhotosContainer({ dataPhotos }: any) {
+  const dispatch = useAppDispatch()
   const [ssrData] = useState<any>(dataPhotos)
   const [pageNumber, setPageNumber] = useState<number>(1)
   const { getCuratedPhoto } = useGetCuratedPhoto()
-  const { photos, loadingPhotos, nextPage }: any = useSelector(
-    selectPhotosBlocks
-  )
+  const {
+    photos,
+    loadingPhotos,
+    nextPage,
+  }: Partial<PhotosBlockItem> = useSelector(selectPhotosBlocks)
+  useEffect(() => {
+    dispatch(
+      addPhotos({
+        removeCopyArray: true,
+      })
+    )
+  }, [])
   useEffect(() => {
     getCuratedPhoto(pageNumber)
   }, [pageNumber])

@@ -4,7 +4,16 @@ import store from '../store/store'
 import { Provider } from 'react-redux'
 import * as React from 'react'
 import Head from 'next/head'
+import Error from 'next/error'
 function MyApp({ Component, pageProps }: AppProps) {
+  if (pageProps.error) {
+    return (
+      <Error
+        statusCode={pageProps.error.statusCode}
+        title={pageProps.error.message}
+      />
+    )
+  }
   React.useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles && jssStyles.parentNode) {
