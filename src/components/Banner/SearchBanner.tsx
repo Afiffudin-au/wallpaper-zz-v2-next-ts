@@ -3,8 +3,7 @@ import InputBase from '@material-ui/core/InputBase'
 import SearchIcon from '@material-ui/icons/Search'
 import useStyleBanner from '../../customHooks/useStyles/useStyleBanner'
 function SearchBanner() {
-  const a = 1
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState<string>('')
   const classes = useStyleBanner()
   const handleSearch = (e: any) => {
     e.preventDefault()

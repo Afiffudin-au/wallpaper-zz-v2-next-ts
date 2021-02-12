@@ -4,7 +4,7 @@ interface VideoSlice extends CreateSliceOptions{
   initialState : VideosBlockOption | VideosDetailsOption |VideoSearchBlockOption
 }
 //Interface for Videos Block
-interface VideosBlockItems{
+export interface VideosBlockItems{
   videos : Array<any>
   loadingVideo : boolean | null
   totalResult : number | null
@@ -31,7 +31,7 @@ interface VideoSearchBlockOption{
 
 //Interface for Action
 //addVideos 
-interface VideoActionItems{
+export interface VideoActionItems{
   loading : boolean
   dataVideo : any
   removeCopyArray : boolean
@@ -40,7 +40,7 @@ interface VideoAction{
   payload : VideoActionItems
 }
 //AddVideoSearch
-interface VideoSearchItems{
+export interface VideoSearchItems{
   loading : boolean
   dataVideo : any
   query : string
@@ -81,6 +81,9 @@ export const videoSlice = createSlice(<VideoSlice>{
       state.videosBlock.totalResult  = action.payload.dataVideo?.total_results
       if(action.payload.removeCopyArray){
         state.videosBlock.videos.length = 0
+        return
+      }
+      if(action.payload?.dataVideo?.videos === undefined){
         return
       }
       state.videosBlock.videos = [...state.videosBlock.videos,action.payload?.dataVideo?.videos || []]

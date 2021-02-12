@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavigationTab({ dataPhotos, dataVideo }: any) {
   const classes = useStyles()
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = React.useState<number>(0)
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue)
   }

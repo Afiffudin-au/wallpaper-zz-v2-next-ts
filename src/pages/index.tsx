@@ -31,7 +31,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     .then((videos) => {
       return videos
     })
-  console.log(dataVideo)
   return {
     props: {
       dataPhotos,

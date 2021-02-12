@@ -8,7 +8,7 @@ import { LinearProgress } from '@material-ui/core'
 import { selectPhotoDetailsBlock } from '../../redux/photoSlice'
 import { useGetDownloadPhoto } from '../../customHooks/useGetDownloadPhoto/useGetDownloadPhoto'
 function ModalDetail({ handleClose }: any) {
-  const [previewUrl, setPreview] = useState('')
+  const [previewUrl, setPreview] = useState<string>('')
   const { photos, loadingPhotos }: any = useSelector(selectPhotoDetailsBlock)
   const classes = useStylesModal()
   const { getDownloadPhoto, loadingDownload } = useGetDownloadPhoto()

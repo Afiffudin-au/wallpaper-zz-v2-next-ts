@@ -6,7 +6,7 @@ import { useRouter } from 'next/dist/client/router'
 
 export default function Search({ typeSearch }: { typeSearch: string }) {
   const classes = useStyleNavbar()
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState<string>('')
   const router = useRouter()
   const handleSearch = (e: any) => {
     e.preventDefault()

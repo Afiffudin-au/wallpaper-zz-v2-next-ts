@@ -52,8 +52,8 @@ export interface CardPhotoType {
   src?: Portrait
 }
 export default function PhotosContainer({ dataPhotos }: any) {
-  const [ssrData] = useState(dataPhotos)
-  const [pageNumber, setPageNumber] = useState(1)
+  const [ssrData] = useState<any>(dataPhotos)
+  const [pageNumber, setPageNumber] = useState<number>(1)
   const { getCuratedPhoto } = useGetCuratedPhoto()
   const { photos, loadingPhotos, nextPage }: any = useSelector(
     selectPhotosBlocks
