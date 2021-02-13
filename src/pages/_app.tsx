@@ -6,9 +6,9 @@ import * as React from 'react'
 import Head from 'next/head'
 import Error from 'next/error'
 import Router from 'next/router'
-import { LinearProgress } from '@material-ui/core'
+import { StyledLinearProgress } from '../components/LoadingProgress/LoadingProgress'
 function MyApp({ Component, pageProps }: AppProps) {
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState<boolean>(false)
   if (pageProps.error) {
     return (
       <Error
@@ -51,7 +51,17 @@ function MyApp({ Component, pageProps }: AppProps) {
           content='wallpaper-zz-next provides wallpapers, videos, modern preview,free download,high resolutions,and search.'
         />
       </Head>
-      {loading && <LinearProgress color='secondary' />}
+      {loading && (
+        <StyledLinearProgress
+          style={{
+            position: 'fixed',
+            top: '0',
+            left: '0',
+            right: '0',
+            zIndex: 5,
+          }}
+        />
+      )}
       <Component {...pageProps} />
     </Provider>
   )

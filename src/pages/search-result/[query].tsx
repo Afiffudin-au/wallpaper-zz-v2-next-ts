@@ -11,6 +11,7 @@ import {
   PhotosSearchBlockItem,
 } from '../../redux/photoSlice'
 import { LinearProgress } from '@material-ui/core'
+import { StyledLinearProgress } from '../../components/LoadingProgress/LoadingProgress'
 const client = createClient(
   '563492ad6f9170000100000170236dd5ebbc4d13936b1f6d2e44461c'
 )
@@ -59,7 +60,7 @@ function SearchResult({ results, queryProps }: any) {
               ))}
         </div>
         <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
-          {loadingPhotos && <LinearProgress color='secondary' />}
+          {loadingPhotos && <StyledLinearProgress />}
         </div>
         {nextPage && (
           <button

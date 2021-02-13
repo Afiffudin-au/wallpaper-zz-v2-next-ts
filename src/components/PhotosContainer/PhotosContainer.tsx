@@ -13,6 +13,7 @@ import {
 } from '../../redux/photoSlice'
 import styles from './PhotosContainer.module.scss'
 import { useAppDispatch } from '../../store/store'
+import { StyledLinearProgress } from '../LoadingProgress/LoadingProgress'
 const PhotoContainer = styled.div`
   .backTop {
     color: rgb(88, 104, 243);
@@ -102,7 +103,7 @@ export default function PhotosContainer({ dataPhotos }: any) {
             ))}
       </PhotoContainerGrid>
       <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
-        {loadingPhotos && <LinearProgress color='secondary' />}
+        {loadingPhotos && <StyledLinearProgress />}
       </div>
       {nextPage && (
         <button

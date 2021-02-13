@@ -12,6 +12,7 @@ import {
   addVideos,
 } from '../../redux/videoSlice'
 import { useAppDispatch } from '../../store/store'
+import { StyledLinearProgress } from '../LoadingProgress/LoadingProgress'
 export interface CardVideoOptions {
   id: string
   url: string
@@ -67,7 +68,7 @@ function VideoContainer({ dataVideo }: any) {
             ))}
       </div>
       <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
-        {loadingVideo && <LinearProgress color='secondary' />}
+        {loadingVideo && <StyledLinearProgress />}
       </div>
       {nextPage && (
         <button
