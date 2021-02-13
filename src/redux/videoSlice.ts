@@ -19,7 +19,7 @@ interface VideosDetailsOption{
 }
 
 //Interface For Video Search Block
-interface VideoSearchBlockItems{
+export interface VideoSearchBlockItems{
   videos : Array<any>,
   loadingVideo : boolean | null
   totalResult : number | null

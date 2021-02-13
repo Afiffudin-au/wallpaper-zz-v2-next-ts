@@ -26,12 +26,14 @@ export default function Search({ typeSearch }: { typeSearch: string }) {
       )
       router.push(`/search-result/${query}`)
     }
-    // if(typeSearch === 'Videos'){
-    //   dispatch(addVideoSearch({
-    //     removeCopyArray : true,
-    //   }))
-    //   history.push('/search-video')
-    // }
+    if (typeSearch === 'Videos') {
+      dispatch(
+        addVideoSearch({
+          removeCopyArray: true,
+        })
+      )
+      router.push(`/search-result-video/${query}`)
+    }
   }
   return (
     <form action=''>

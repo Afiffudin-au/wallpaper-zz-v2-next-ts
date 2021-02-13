@@ -28,7 +28,6 @@ function SearchResult({ results, queryProps }: any) {
     setPageNumber(1)
   }, [queryProps])
   useEffect(() => {
-    console.log('GET')
     getSearchPhotos(queryProps || query, pageNumber)
   }, [pageNumber, queryProps])
   return (

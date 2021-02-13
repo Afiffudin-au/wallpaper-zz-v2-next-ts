@@ -19,11 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
   React.useEffect(() => {
     const start = () => {
-      console.log('start')
       setLoading(true)
     }
     const end = () => {
-      console.log('findished')
       setLoading(false)
     }
     Router.events.on('routeChangeStart', start)
@@ -47,6 +45,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta
           name='viewport'
           content='width=device-width, initial-scale=1, shrink-to-fit=no'
+        />
+        <meta
+          name='Description'
+          content='wallpaper-zz-next provides wallpapers, videos, modern preview,free download,high resolutions,and search.'
         />
       </Head>
       {loading && <LinearProgress color='secondary' />}
