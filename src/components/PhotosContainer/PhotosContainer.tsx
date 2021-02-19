@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import { IconButton } from '@material-ui/core'
-import CardPhoto from '../CardPhoto/CardPhoto'
+import CardPhoto, { CardPhotoOptions } from '../CardPhoto/CardPhoto'
 import styled from 'styled-components'
 import { useGetCuratedPhoto } from '../../customHooks/useGetCuratedPhoto/useGetCuratedPhoto'
 import { useSelector } from 'react-redux'
@@ -51,7 +50,7 @@ const PhotoContainerGrid = styled.div`
 interface Portrait {
   portrait: string
 }
-export interface CardPhotoType {
+export interface PhotoOptions {
   id?: string
   url?: string
   imgPortrait?: string
@@ -82,7 +81,7 @@ export default function PhotosContainer({ dataPhotos }: any) {
       <PhotoContainerGrid className={styles.photoContainerGrid}>
         {pageNumber > 1
           ? photos?.map((photo: any) =>
-              photo.map((photo: CardPhotoType) => (
+              photo.map((photo: PhotoOptions) => (
                 <div key={photo.id}>
                   <MemoizedChildComponent
                     id={photo.id}
@@ -92,7 +91,7 @@ export default function PhotosContainer({ dataPhotos }: any) {
                 </div>
               ))
             )
-          : ssrData.photos.map((photo: CardPhotoType) => (
+          : ssrData.photos.map((photo: PhotoOptions) => (
               <div key={photo.id}>
                 <MemoizedChildComponent
                   id={photo.id}
@@ -122,7 +121,7 @@ export default function PhotosContainer({ dataPhotos }: any) {
     </PhotoContainer>
   )
 }
-function ChildComponent({ id, url, imgPortrait }: CardPhotoType) {
+function ChildComponent({ id, url, imgPortrait }: CardPhotoOptions) {
   return <CardPhoto id={id} url={url} imgPortrait={imgPortrait} />
 }
 const MemoizedChildComponent = React.memo(ChildComponent)

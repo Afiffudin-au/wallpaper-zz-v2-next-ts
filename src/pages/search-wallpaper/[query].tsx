@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { createClient } from 'pexels'
 import styles from './search-result.module.scss'
-import { CardPhotoType } from '../../components/PhotosContainer/PhotosContainer'
-import CardPhoto from '../../components/CardPhoto/CardPhoto'
+import { PhotoOptions } from '../../components/PhotosContainer/PhotosContainer'
+import CardPhoto, {
+  CardPhotoOptions,
+} from '../../components/CardPhoto/CardPhoto'
 import Navbar from '../../components/Navbar/Navbar'
 import { useGetSearchPhotos } from '../../customHooks/useSearchPhoto/useSearchPhoto'
 import { useSelector } from 'react-redux'
@@ -39,7 +41,7 @@ function SearchResult({ results, queryProps }: any) {
         <div className={styles.SearchPhotos__grid}>
           {pageNumber > 1
             ? photos?.map((photo) =>
-                photo.map((photo: CardPhotoType) => (
+                photo.map((photo: PhotoOptions) => (
                   <div key={photo.id}>
                     <MemoizedChildComponent
                       id={photo.id}
@@ -49,7 +51,7 @@ function SearchResult({ results, queryProps }: any) {
                   </div>
                 ))
               )
-            : results.photos.map((photo: CardPhotoType, index: number) => (
+            : results.photos.map((photo: PhotoOptions, index: number) => (
                 <div key={photo.id}>
                   <MemoizedChildComponent
                     id={photo.id}
@@ -73,7 +75,7 @@ function SearchResult({ results, queryProps }: any) {
     </>
   )
 }
-function ChildComponent({ id, url, imgPortrait }: CardPhotoType) {
+function ChildComponent({ id, url, imgPortrait }: CardPhotoOptions) {
   return <CardPhoto id={id} url={url} imgPortrait={imgPortrait} />
 }
 const MemoizedChildComponent = React.memo(ChildComponent)

@@ -1,5 +1,4 @@
 import React from 'react'
-import { CardPhotoType } from '../PhotosContainer/PhotosContainer'
 import styled from 'styled-components'
 import { useGetPhotoDetail } from '../../customHooks/useGetPhotoDetail/useGetPhotoDetail'
 import { Modal } from '@material-ui/core'
@@ -18,14 +17,19 @@ const CardPhotoStyled = styled.div`
     }
   }
 `
-const ImageCard = styled.img`
+const ImageCard: any = styled.img`
   opacity: 0.99;
   border-radius: 0.5rem;
   background: #232a34;
   width: 100%;
   height: 100%;
 `
-function CardPhoto({ id, url, imgPortrait }: CardPhotoType) {
+export interface CardPhotoOptions {
+  id: string | number | undefined
+  url: string | number | undefined
+  imgPortrait: string | number | undefined
+}
+function CardPhoto({ id, url, imgPortrait }: CardPhotoOptions) {
   const [open, setOpen] = React.useState(false)
   const { getPhotoDetail } = useGetPhotoDetail()
   const handleClose = () => {

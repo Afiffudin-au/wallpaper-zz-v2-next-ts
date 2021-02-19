@@ -3,7 +3,7 @@ import styles from './VideosContainer.module.scss'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { IconButton } from '@material-ui/core'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-import CardVideo from '../CardVideo/CardVideo'
+import CardVideo, { CardVideoOptions } from '../CardVideo/CardVideo'
 import { useGetVideoPopular } from '../../customHooks/useGetVideoPopular/useGetVideoPopular'
 import { useSelector } from 'react-redux'
 import {
@@ -13,7 +13,7 @@ import {
 } from '../../redux/videoSlice'
 import { useAppDispatch } from '../../store/store'
 import { StyledLinearProgress } from '../LoadingProgress/LoadingProgress'
-export interface CardVideoOptions {
+export interface VideoInterfaces {
   id: string
   url: string
   image: string
@@ -47,7 +47,7 @@ function VideoContainer({ dataVideo }: any) {
       <div className={styles.VideoContainer__grid}>
         {pageNumber > 1
           ? videos?.map((video) =>
-              video.map((video: CardVideoOptions) => (
+              video.map((video: VideoInterfaces) => (
                 <div key={video.id}>
                   <MemoizedChildComponent
                     id={video.id}
@@ -57,7 +57,7 @@ function VideoContainer({ dataVideo }: any) {
                 </div>
               ))
             )
-          : dataVideo.videos.map((video: CardVideoOptions, index: number) => (
+          : dataVideo.videos.map((video: VideoInterfaces, index: number) => (
               <div key={video.id}>
                 <MemoizedChildComponent
                   id={video.id}

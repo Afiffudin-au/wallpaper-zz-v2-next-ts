@@ -3,7 +3,6 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import { IconButton } from '@material-ui/core'
 import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
-import { CardVideoOptions } from '../VideosContainer/VideosContainer'
 import Link from 'next/link'
 const CardVideoStyled = styled.div`
   margin-bottom: 10px;
@@ -15,7 +14,7 @@ const CardVideoStyled = styled.div`
 const Wrapper = styled.div`
   position: relative;
 `
-const Image = styled.img`
+const Image: any = styled.img`
   width: 100%;
   height: 100%;
   object-fit: fill;
@@ -35,6 +34,11 @@ const PlayBox = styled.div`
     }
   }
 `
+export interface CardVideoOptions {
+  id: string | number | undefined
+  url: string | number | undefined
+  image: string | number | undefined
+}
 function CardVideo({ id, url, image }: CardVideoOptions) {
   return (
     <CardVideoStyled>

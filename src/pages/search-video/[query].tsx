@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styles from './search-result-video.module.scss'
 import { createClient } from 'pexels'
-import { CardVideoOptions } from '../../components/VideosContainer/VideosContainer'
-import CardVideo from '../../components/CardVideo/CardVideo'
+import { VideoInterfaces } from '../../components/VideosContainer/VideosContainer'
+import CardVideo, {
+  CardVideoOptions,
+} from '../../components/CardVideo/CardVideo'
 import Navbar from '../../components/Navbar/Navbar'
 import { useGetVideoSearch } from '../../customHooks/useSearchVideo/useSearchVideo'
 import { useSelector } from 'react-redux'
@@ -42,7 +44,7 @@ function SearchResultVideo({ results, queryProps }: any) {
         <div className={styles.VideoContainer__grid}>
           {pageNumber > 1
             ? videos?.map((video) =>
-                video.map((video: CardVideoOptions) => (
+                video.map((video: VideoInterfaces) => (
                   <div key={video.id}>
                     <MemoizedChildComponent
                       id={video.id}
@@ -52,7 +54,7 @@ function SearchResultVideo({ results, queryProps }: any) {
                   </div>
                 ))
               )
-            : results.videos.map((video: CardVideoOptions) => (
+            : results.videos.map((video: VideoInterfaces) => (
                 <div key={video.id}>
                   <MemoizedChildComponent
                     id={video.id}
