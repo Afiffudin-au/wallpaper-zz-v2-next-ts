@@ -1,7 +1,6 @@
 import React from 'react'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import { IconButton } from '@material-ui/core'
-import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
 import Link from 'next/link'
 const CardVideoStyled = styled.div`

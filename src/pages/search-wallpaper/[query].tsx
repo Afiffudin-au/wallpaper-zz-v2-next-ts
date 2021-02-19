@@ -12,7 +12,6 @@ import {
   selectPhotoSearchBlock,
   PhotosSearchBlockItem,
 } from '../../redux/photoSlice'
-import { LinearProgress } from '@material-ui/core'
 import { StyledLinearProgress } from '../../components/LoadingProgress/LoadingProgress'
 const client = createClient(
   '563492ad6f9170000100000170236dd5ebbc4d13936b1f6d2e44461c'

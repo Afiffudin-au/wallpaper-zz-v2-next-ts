@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styles from './VideosContainer.module.scss'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import { IconButton } from '@material-ui/core'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import CardVideo, { CardVideoOptions } from '../CardVideo/CardVideo'
