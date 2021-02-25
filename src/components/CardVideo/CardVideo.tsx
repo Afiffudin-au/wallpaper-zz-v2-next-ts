@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import { IconButton } from '@material-ui/core'
 import styled from 'styled-components'
 import Link from 'next/link'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import LazyLoad from 'react-lazyload'
 const CardVideoStyled = styled.div`
   margin-bottom: 10px;
   flex-grow: 1;
@@ -17,6 +19,7 @@ const Image: any = styled.img`
   width: 100%;
   height: 100%;
   object-fit: fill;
+  border-radius: 5px;
 `
 const PlayBox = styled.div`
   position: absolute;
@@ -39,17 +42,35 @@ export interface CardVideoOptions {
   image: string | number | undefined
 }
 function CardVideo({ id, url, image }: CardVideoOptions) {
+  const [imageLoad, setImageLoad] = useState<boolean>(false)
+  const [display, setDisplay] = useState<string>('none')
+  const handleImageLoad = () => {
+    setImageLoad(true)
+    setDisplay('block')
+  }
   return (
     <CardVideoStyled>
       <Wrapper>
-        <Image src={image} alt={image} />
-        <PlayBox>
-          <Link href={`/video-detail/${id}`}>
-            <IconButton>
-              <PlayCircleOutlineIcon className='CardVideo__playIcon' />
-            </IconButton>
-          </Link>
-        </PlayBox>
+        {!imageLoad && (
+          <SkeletonTheme color='#202020' highlightColor='#444'>
+            <Skeleton count={1} height={'225px'} width={'100%'} />
+          </SkeletonTheme>
+        )}
+        <Image
+          style={{ display: display }}
+          onLoad={handleImageLoad}
+          src={image}
+          alt={image}
+        />
+        {imageLoad && (
+          <PlayBox>
+            <Link href={`/video-detail/${id}`}>
+              <IconButton>
+                <PlayCircleOutlineIcon className='CardVideo__playIcon' />
+              </IconButton>
+            </Link>
+          </PlayBox>
+        )}
       </Wrapper>
     </CardVideoStyled>
   )
