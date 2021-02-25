@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useGetPhotoDetail } from '../../customHooks/useGetPhotoDetail/useGetPhotoDetail'
 import { Modal } from '@material-ui/core'
 import ModalDetail from '../ModalDetail/ModalDetail'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import LazyLoad from 'react-lazyload'
 const CardPhotoStyled = styled.div`
   margin-bottom: 10px;
   flex-grow: 1;
@@ -30,6 +32,8 @@ export interface CardPhotoOptions {
   imgPortrait: string | number | undefined
 }
 function CardPhoto({ id, url, imgPortrait }: CardPhotoOptions) {
+  const [imageLoad, setImageLoad] = useState<boolean>(false)
+  const [display, setDisplay] = useState<string>('none')
   const [open, setOpen] = React.useState(false)
   const { getPhotoDetail } = useGetPhotoDetail()
   const handleClose = () => {
@@ -39,10 +43,26 @@ function CardPhoto({ id, url, imgPortrait }: CardPhotoOptions) {
     setOpen(true)
     getPhotoDetail(id)
   }
+  const handleImageLoad = () => {
+    setImageLoad(true)
+    setDisplay('block')
+  }
   return (
     <>
       <CardPhotoStyled onClick={handleDetail}>
-        <ImageCard src={imgPortrait} alt={url} />
+        {!imageLoad && (
+          <SkeletonTheme color='#202020' highlightColor='#444'>
+            <Skeleton count={1} height={'600px'} width={'100%'} />
+          </SkeletonTheme>
+        )}
+        <LazyLoad offset={600}>
+          <ImageCard
+            style={{ display: display }}
+            onLoad={handleImageLoad}
+            src={imgPortrait}
+            alt={url}
+          />
+        </LazyLoad>
       </CardPhotoStyled>
       <Modal
         open={open}

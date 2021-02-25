@@ -24,7 +24,7 @@ export default function Search({ typeSearch }: { typeSearch: string }) {
           removeCopyArray: true,
         })
       )
-      router.push(`/search-result/${query}`)
+      router.push(`/search-wallpaper/${query}`)
     }
     if (typeSearch === 'Videos') {
       dispatch(
