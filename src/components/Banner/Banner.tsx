@@ -1,5 +1,5 @@
-import SearchBanner from "./SearchBanner";
-import styled from "styled-components";
+import SearchBanner from './SearchBanner'
+import styled from 'styled-components'
 const BannerWrap = styled.div`
   position: relative;
   display: -webkit-box;
@@ -19,7 +19,7 @@ const BannerWrap = styled.div`
   min-height: 380px;
   z-index: 1;
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -33,7 +33,7 @@ const BannerWrap = styled.div`
       linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
     z-index: 2;
   }
-`;
+`
 const Background = styled.div`
   position: absolute;
   top: 0;
@@ -43,14 +43,14 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-`;
+`
 const Image = styled.img`
   width: 100%;
   height: 100%;
   // -o-object-fit: cover;
   object-fit: fill;
   background: #232a34;
-`;
+`
 const BannerContent = styled.div`
   max-width: 650px;
   width: 100%;
@@ -58,7 +58,7 @@ const BannerContent = styled.div`
   .title {
     margin-bottom: 10px;
   }
-`;
+`
 const Suggestion = styled.div`
   margin-top: 10px;
   .suggestion__header {
@@ -72,30 +72,30 @@ const Suggestion = styled.div`
     font-weight: 400;
     color: rgb(173, 173, 173);
   }
-`;
+`
 function Banner() {
   return (
-    <BannerWrap id="navTop">
+    <BannerWrap id='navTop'>
       <Background>
         <Image
-          src="https://images.pexels.com/photos/5629220/pexels-photo-5629220.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
-          alt="background"
+          src='https://images.pexels.com/photos/5629220/pexels-photo-5629220.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200'
+          alt='background'
         />
       </Background>
       <BannerContent>
-        <div className="title">
+        <div className='title'>
           <h1>The free stock wallpapers & videos</h1>
         </div>
         <SearchBanner />
         <Suggestion>
-          <span className="suggestion__header">Suggested:</span>
-          <span className="suggestion__title">
+          <span className='suggestion__header'>Suggested:</span>
+          <span className='suggestion__title'>
             outdoors portrait travel black-and-white people boy more
           </span>
         </Suggestion>
       </BannerContent>
     </BannerWrap>
-  );
+  )
 }
 
-export default Banner;
+export default Banner

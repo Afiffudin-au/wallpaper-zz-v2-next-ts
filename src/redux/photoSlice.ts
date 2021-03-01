@@ -1,81 +1,81 @@
-import { createSlice, CreateSliceOptions } from "@reduxjs/toolkit";
+import { createSlice, CreateSliceOptions } from '@reduxjs/toolkit'
 interface PhotoSlice extends CreateSliceOptions {
-  name: string;
+  name: string
   initialState:
     | PhotosBlockOption
     | PhotosDetailBlockOption
-    | PhotosSearchBlockOption;
+    | PhotosSearchBlockOption
 }
 //photosBlocks
 export interface PhotosBlockItem {
-  photos: Array<any>;
-  loadingPhotos: boolean | null;
-  nextPage: number;
+  photos: Array<any>
+  loadingPhotos: boolean | null
+  nextPage: number
 }
 interface PhotosBlockOption {
-  photosBlocks: PhotosBlockItem;
+  photosBlocks: PhotosBlockItem
 }
 
 //photosDetailsBlocks
 export interface PhotosDetailBlockItem {
-  photos: any;
-  loadingPhotos: null | boolean;
+  photos: any
+  loadingPhotos: null | boolean
 }
 interface PhotosDetailBlockOption {
-  photosDetailsBlocks: PhotosDetailBlockItem;
+  photosDetailsBlocks: PhotosDetailBlockItem
 }
 
 //photoSearchBlocks
 export interface PhotosSearchBlockItem {
-  photos: Array<any>;
-  loadingPhotos: boolean | null;
-  nextPage: number;
-  query: string;
-  totalResults: null | number;
+  photos: Array<any>
+  loadingPhotos: boolean | null
+  nextPage: number
+  query: string
+  totalResults: null | number
 }
 interface PhotosSearchBlockOption {
-  photoSearchBlocks: PhotosSearchBlockItem;
+  photoSearchBlocks: PhotosSearchBlockItem
 }
 
 //Action inteface
 export interface CuratedPhotoItems {
-  loading: boolean;
-  next_page: number;
-  photos: any;
-  removeCopyArray: boolean;
+  loading: boolean
+  next_page: number
+  photos: any
+  removeCopyArray: boolean
 }
 interface CuratedPhotoAction {
-  payload: CuratedPhotoItems;
+  payload: CuratedPhotoItems
 }
 
 export interface PhotoDetailItems {
-  loading: boolean;
-  dataPhotoDetails: any;
+  loading: boolean
+  dataPhotoDetails: any
 }
 interface PhotoDetailAction {
-  payload: PhotoDetailItems;
+  payload: PhotoDetailItems
 }
 export interface PhotoSearchItems {
-  loading: boolean;
-  query: string;
-  dataPhotosResult: any;
-  totalResults: number;
-  removeCopyArray: boolean;
+  loading: boolean
+  query: string
+  dataPhotosResult: any
+  totalResults: number
+  removeCopyArray: boolean
 }
 interface PhotoSearchAction {
-  payload: PhotoSearchItems;
+  payload: PhotoSearchItems
 }
 
 interface StateItems {
-  photosBlocks: {};
-  photosDetailsBlocks: {};
-  photoSearchBlocks: {};
+  photosBlocks: {}
+  photosDetailsBlocks: {}
+  photoSearchBlocks: {}
 }
 interface StateInterface {
-  photos: StateItems;
+  photos: StateItems
 }
 export const photoSlice = createSlice(<PhotoSlice>{
-  name: "photo",
+  name: 'photo',
   initialState: {
     photosBlocks: {
       photos: [],
@@ -90,66 +90,66 @@ export const photoSlice = createSlice(<PhotoSlice>{
       photos: [],
       loadingPhotos: null,
       nextPage: null,
-      query: "",
+      query: '',
       totalResults: null,
     },
   },
   reducers: {
     addPhotos: (state: PhotosBlockOption, action: CuratedPhotoAction) => {
-      state.photosBlocks.loadingPhotos = action.payload.loading;
-      state.photosBlocks.nextPage = action.payload.photos?.next_page;
+      state.photosBlocks.loadingPhotos = action.payload.loading
+      state.photosBlocks.nextPage = action.payload.photos?.next_page
       if (action.payload.removeCopyArray) {
-        state.photosBlocks.photos.length = 0;
-        return;
+        state.photosBlocks.photos.length = 0
+        return
       }
       if (action.payload?.photos?.photos === undefined) {
-        return;
+        return
       }
       state.photosBlocks.photos = [
         ...state.photosBlocks.photos,
         action.payload?.photos?.photos || [],
-      ];
+      ]
     },
     addPhotoDetails: (
       state: PhotosDetailBlockOption,
       action: PhotoDetailAction
     ) => {
-      state.photosDetailsBlocks.loadingPhotos = action.payload.loading;
+      state.photosDetailsBlocks.loadingPhotos = action.payload.loading
 
-      state.photosDetailsBlocks.photos = action.payload.dataPhotoDetails || [];
+      state.photosDetailsBlocks.photos = action.payload.dataPhotoDetails || []
     },
     addResultSearch: (
       state: PhotosSearchBlockOption,
       action: PhotoSearchAction
     ) => {
-      state.photoSearchBlocks.loadingPhotos = action.payload.loading;
-      state.photoSearchBlocks.query = action.payload.query;
+      state.photoSearchBlocks.loadingPhotos = action.payload.loading
+      state.photoSearchBlocks.query = action.payload.query
       state.photoSearchBlocks.nextPage =
-        action.payload.dataPhotosResult?.next_page;
-      state.photoSearchBlocks.totalResults = action.payload.totalResults;
+        action.payload.dataPhotosResult?.next_page
+      state.photoSearchBlocks.totalResults = action.payload.totalResults
       if (action.payload.removeCopyArray) {
-        state.photoSearchBlocks.photos.length = 0;
+        state.photoSearchBlocks.photos.length = 0
       }
       if (action.payload?.dataPhotosResult?.photos === undefined) {
-        return;
+        return
       }
       state.photoSearchBlocks.photos = [
         ...state.photoSearchBlocks.photos,
         action.payload?.dataPhotosResult?.photos || [],
-      ];
+      ]
     },
   },
-});
+})
 
 export const {
   addPhotos,
   addPhotoDetails,
   addResultSearch,
-} = photoSlice.actions;
+} = photoSlice.actions
 export const selectPhotosBlocks = (state: StateInterface) =>
-  state.photos.photosBlocks;
+  state.photos.photosBlocks
 export const selectPhotoDetailsBlock = (state: StateInterface) =>
-  state.photos.photosDetailsBlocks;
+  state.photos.photosDetailsBlocks
 export const selectPhotoSearchBlock = (state: StateInterface) =>
-  state.photos.photoSearchBlocks;
-export default photoSlice.reducer;
+  state.photos.photoSearchBlocks
+export default photoSlice.reducer

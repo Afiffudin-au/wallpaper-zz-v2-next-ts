@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from "react";
-import styles from "./search-result-video.module.scss";
-import { createClient } from "pexels";
-import { VideoInterfaces } from "../../components/VideosContainer/VideosContainer";
+import React, { useEffect, useState } from 'react'
+import styles from './search-result-video.module.scss'
+import { createClient } from 'pexels'
+import { VideoInterfaces } from '../../components/VideosContainer/VideosContainer'
 import CardVideo, {
   CardVideoOptions,
-} from "../../components/CardVideo/CardVideo";
-import Navbar from "../../components/Navbar/Navbar";
-import { useGetVideoSearch } from "../../customHooks/useSearchVideo/useSearchVideo";
-import { useSelector } from "react-redux";
+} from '../../components/CardVideo/CardVideo'
+import Navbar from '../../components/Navbar/Navbar'
+import { useGetVideoSearch } from '../../customHooks/useSearchVideo/useSearchVideo'
+import { useSelector } from 'react-redux'
 import {
   selectVideoSearchBlock,
   VideoSearchBlockItems,
-} from "../../redux/videoSlice";
-import { IconButton } from "@material-ui/core";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import { StyledLinearProgress } from "../../components/LoadingProgress/LoadingProgress";
+} from '../../redux/videoSlice'
+import { IconButton } from '@material-ui/core'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import { StyledLinearProgress } from '../../components/LoadingProgress/LoadingProgress'
 const client = createClient(
-  "563492ad6f9170000100000170236dd5ebbc4d13936b1f6d2e44461c"
-);
+  '563492ad6f9170000100000170236dd5ebbc4d13936b1f6d2e44461c'
+)
 function SearchResultVideo({ results, queryProps }: any) {
-  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [pageNumber, setPageNumber] = useState<number>(1)
   const {
     videos,
     totalResult: nextPage,
     query,
     loadingVideo,
-  }: Partial<VideoSearchBlockItems> = useSelector(selectVideoSearchBlock);
-  const { getVideoSearch } = useGetVideoSearch();
-  let lengthPage = 0;
+  }: Partial<VideoSearchBlockItems> = useSelector(selectVideoSearchBlock)
+  const { getVideoSearch } = useGetVideoSearch()
+  let lengthPage = 0
   videos?.forEach((video) => {
-    lengthPage += video?.length;
-  });
+    lengthPage += video?.length
+  })
   useEffect(() => {
-    setPageNumber(1);
-  }, [queryProps]);
+    setPageNumber(1)
+  }, [queryProps])
   useEffect(() => {
-    getVideoSearch(queryProps || query, pageNumber);
-  }, [pageNumber, queryProps]);
+    getVideoSearch(queryProps || query, pageNumber)
+  }, [pageNumber, queryProps])
   return (
     <>
       <Navbar />
@@ -64,14 +64,13 @@ function SearchResultVideo({ results, queryProps }: any) {
                 </div>
               ))}
         </div>
-        <div style={{ position: "sticky", top: 0, marginBottom: "5px" }}>
+        <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
           {loadingVideo && <StyledLinearProgress />}
         </div>
         {nextPage && (
           <button
             className={styles.button_increase}
-            onClick={() => setPageNumber((current) => current + 1)}
-          >
+            onClick={() => setPageNumber((current) => current + 1)}>
             Load More...
           </button>
         )}
@@ -82,38 +81,38 @@ function SearchResultVideo({ results, queryProps }: any) {
         )}
         {!loadingVideo && (
           <IconButton>
-            <a href="#navTop">
+            <a href='#navTop'>
               <ArrowUpwardIcon className={styles.backTop} />
             </a>
           </IconButton>
         )}
       </div>
     </>
-  );
+  )
 }
 function ChildComponent({ id, url, image }: CardVideoOptions) {
-  return <CardVideo id={id} url={url} image={image} />;
+  return <CardVideo id={id} url={url} image={image} />
 }
-const MemoizedChildComponent = React.memo(ChildComponent);
+const MemoizedChildComponent = React.memo(ChildComponent)
 export const getServerSideProps = async ({ params }: any) => {
   const results = await client.videos
     .search({ query: params.query, per_page: 20, page: 1 })
     .then((videos) => {
-      return videos;
+      return videos
     })
     .catch((err) => {
-      return false;
-    });
+      return false
+    })
   if (!results) {
     return {
       notFound: true,
-    };
+    }
   }
   return {
     props: {
       results,
       queryProps: params.query,
     },
-  };
-};
-export default SearchResultVideo;
+  }
+}
+export default SearchResultVideo

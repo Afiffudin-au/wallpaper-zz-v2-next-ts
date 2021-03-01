@@ -1,26 +1,26 @@
-import { useState } from "react";
-import { saveAs } from "file-saver";
-import Axios from "axios";
+import { useState } from 'react'
+import { saveAs } from 'file-saver'
+import Axios from 'axios'
 export function useGetDownloadPhoto() {
-  const [loadingDownload, setLoadingDownload] = useState(false);
+  const [loadingDownload, setLoadingDownload] = useState(false)
   const getDownloadPhoto = (url: string) => {
-    setLoadingDownload(true);
+    setLoadingDownload(true)
     Axios({
-      method: "GET",
+      method: 'GET',
       url: url,
-      responseType: "blob",
+      responseType: 'blob',
     })
       .then((res) => {
-        saveAs(res.data, "image");
-        setLoadingDownload(false);
+        saveAs(res.data, 'image')
+        setLoadingDownload(false)
       })
       .catch((err) => {
-        setLoadingDownload(false);
-        alert(err);
-      });
-  };
+        setLoadingDownload(false)
+        alert(err)
+      })
+  }
   return {
     getDownloadPhoto,
     loadingDownload,
-  };
+  }
 }
