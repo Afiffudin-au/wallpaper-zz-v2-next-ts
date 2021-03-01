@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-import { IconButton } from '@material-ui/core'
-import CardPhoto, { CardPhotoOptions } from '../CardPhoto/CardPhoto'
-import styled from 'styled-components'
-import { useGetCuratedPhoto } from '../../customHooks/useGetCuratedPhoto/useGetCuratedPhoto'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from "react";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import { IconButton } from "@material-ui/core";
+import CardPhoto, { CardPhotoOptions } from "../CardPhoto/CardPhoto";
+import styled from "styled-components";
+import { useGetCuratedPhoto } from "../../customHooks/useGetCuratedPhoto/useGetCuratedPhoto";
+import { useSelector } from "react-redux";
 import {
   addPhotos,
   PhotosBlockItem,
   selectPhotosBlocks,
-} from '../../redux/photoSlice'
-import styles from './PhotosContainer.module.scss'
-import { useAppDispatch } from '../../store/store'
-import { StyledLinearProgress } from '../LoadingProgress/LoadingProgress'
+} from "../../redux/photoSlice";
+import styles from "./PhotosContainer.module.scss";
+import { useAppDispatch } from "../../store/store";
+import { StyledLinearProgress } from "../LoadingProgress/LoadingProgress";
 const PhotoContainer = styled.div`
   .backTop {
     color: rgb(88, 104, 243);
@@ -41,41 +41,41 @@ const PhotoContainer = styled.div`
       transform: scale(1.01);
     }
   }
-`
+`;
 const PhotoContainerGrid = styled.div`
   display: grid;
   grid-gap: 0.25rem;
   gap: 0.25rem;
-`
+`;
 interface Portrait {
-  portrait: string
+  portrait: string;
 }
 export interface PhotoOptions {
-  id?: string
-  url?: string
-  imgPortrait?: string
-  src?: Portrait
+  id?: string;
+  url?: string;
+  imgPortrait?: string;
+  src?: Portrait;
 }
 export default function PhotosContainer({ dataPhotos }: any) {
-  const dispatch = useAppDispatch()
-  const [ssrData] = useState<any>(dataPhotos)
-  const [pageNumber, setPageNumber] = useState<number>(1)
-  const { getCuratedPhoto } = useGetCuratedPhoto()
+  const dispatch = useAppDispatch();
+  const [ssrData] = useState<any>(dataPhotos);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const { getCuratedPhoto } = useGetCuratedPhoto();
   const {
     photos,
     loadingPhotos,
     nextPage,
-  }: Partial<PhotosBlockItem> = useSelector(selectPhotosBlocks)
+  }: Partial<PhotosBlockItem> = useSelector(selectPhotosBlocks);
   useEffect(() => {
     dispatch(
       addPhotos({
         removeCopyArray: true,
       })
-    )
-  }, [])
+    );
+  }, []);
   useEffect(() => {
-    getCuratedPhoto(pageNumber)
-  }, [pageNumber])
+    getCuratedPhoto(pageNumber);
+  }, [pageNumber]);
   return (
     <PhotoContainer>
       <PhotoContainerGrid className={styles.photoContainerGrid}>
@@ -101,27 +101,28 @@ export default function PhotosContainer({ dataPhotos }: any) {
               </div>
             ))}
       </PhotoContainerGrid>
-      <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
+      <div style={{ position: "sticky", top: 0, marginBottom: "5px" }}>
         {loadingPhotos && <StyledLinearProgress />}
       </div>
       {nextPage && (
         <button
-          className='button_increase'
-          onClick={() => setPageNumber((current) => current + 1)}>
+          className="button_increase"
+          onClick={() => setPageNumber((current) => current + 1)}
+        >
           Load More...
         </button>
       )}
       {!loadingPhotos && (
         <IconButton>
-          <a href='#navTop'>
-            <ArrowUpwardIcon className='backTop' />
+          <a href="#navTop">
+            <ArrowUpwardIcon className="backTop" />
           </a>
         </IconButton>
       )}
     </PhotoContainer>
-  )
+  );
 }
 function ChildComponent({ id, url, imgPortrait }: CardPhotoOptions) {
-  return <CardPhoto id={id} url={url} imgPortrait={imgPortrait} />
+  return <CardPhoto id={id} url={url} imgPortrait={imgPortrait} />;
 }
-const MemoizedChildComponent = React.memo(ChildComponent)
+const MemoizedChildComponent = React.memo(ChildComponent);

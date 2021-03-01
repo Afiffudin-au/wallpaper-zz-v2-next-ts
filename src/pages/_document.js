@@ -12,7 +12,7 @@ class CustomDocument extends Document {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>
-            sheet.collectStyles(materialUISheets.collect(<App {...props} />))
+            sheet.collectStyles(materialUISheets.collect(<App {...props} />)),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -24,7 +24,7 @@ class CustomDocument extends Document {
             {materialUISheets.getStyleElement()}
             {sheet.getStyleElement()}
           </>
-        )
+        ),
       };
     } finally {
       sheet.seal();
