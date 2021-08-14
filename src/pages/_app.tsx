@@ -16,9 +16,7 @@ const progress = new ProgressBar({
 Router.events.on('routeChangeStart', progress.start)
 Router.events.on('routeChangeComplete', progress.finish)
 Router.events.on('routeChangeError', progress.finish)
-import { StyledLinearProgress } from '../components/LoadingProgress/LoadingProgress'
 function MyApp({ Component, pageProps }: AppProps) {
-  const [loading, setLoading] = React.useState<boolean>(false)
   if (pageProps.error) {
     return (
       <Error
@@ -39,17 +37,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           content='wallpaper-zz-next provides wallpapers, videos, modern preview,free download,high resolutions,and search.'
         />
       </Head>
-      {loading && (
-        <StyledLinearProgress
-          style={{
-            position: 'fixed',
-            top: '0',
-            left: '0',
-            right: '0',
-            zIndex: 5,
-          }}
-        />
-      )}
       <Component {...pageProps} />
     </Provider>
   )
