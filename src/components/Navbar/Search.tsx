@@ -32,7 +32,7 @@ export default function Search({ typeSearch }: { typeSearch: string }) {
           removeCopyArray: true,
         })
       )
-      router.push(`/search-result-video/${query}`)
+      router.push(`/search-video/${query}`)
     }
   }
   return (

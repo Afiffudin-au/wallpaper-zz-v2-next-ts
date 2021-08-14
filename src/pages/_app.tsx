@@ -6,6 +6,16 @@ import * as React from 'react'
 import Head from 'next/head'
 import Error from 'next/error'
 import Router from 'next/router'
+import ProgressBar from '@badrap/bar-of-progress'
+const progress = new ProgressBar({
+  size: 4,
+  color: '#59aefe',
+  className: 'z-50',
+  delay: 100,
+})
+Router.events.on('routeChangeStart', progress.start)
+Router.events.on('routeChangeComplete', progress.finish)
+Router.events.on('routeChangeError', progress.finish)
 import { StyledLinearProgress } from '../components/LoadingProgress/LoadingProgress'
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = React.useState<boolean>(false)
@@ -17,28 +27,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
     )
   }
-  React.useEffect(() => {
-    const start = () => {
-      setLoading(true)
-    }
-    const end = () => {
-      setLoading(false)
-    }
-    Router.events.on('routeChangeStart', start)
-    Router.events.on('routeChangeComplete', end)
-    Router.events.on('routeChangeError', end)
-    return () => {
-      Router.events.off('routeChangeStart', start)
-      Router.events.off('routeChangeComplete', end)
-      Router.events.off('routeChangeError', end)
-    }
-  }, [])
-  React.useEffect(() => {
-    const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles && jssStyles.parentNode) {
-      jssStyles.parentNode.removeChild(jssStyles)
-    }
-  }, [])
   return (
     <Provider store={store}>
       <Head>
