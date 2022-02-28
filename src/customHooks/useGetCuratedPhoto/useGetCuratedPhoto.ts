@@ -5,7 +5,7 @@ const client = createClient(
   '563492ad6f9170000100000170236dd5ebbc4d13936b1f6d2e44461c'
 )
 
-export const useGetCuratedPhoto = () => {
+export default function useGetCuratedPhoto() {
   let dispatch = useAppDispatch()
   const getCuratedPhoto = (pageNumber: number) => {
     dispatch(

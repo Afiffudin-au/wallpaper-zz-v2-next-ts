@@ -6,7 +6,7 @@ import CardVideo, {
   CardVideoOptions,
 } from '../../components/CardVideo/CardVideo'
 import Navbar from '../../components/Navbar/Navbar'
-import { useGetVideoSearch } from '../../customHooks/useSearchVideo/useSearchVideo'
+import useGetVideoSearch from '../../customHooks/useSearchVideo/useSearchVideo'
 import { useSelector } from 'react-redux'
 import {
   selectVideoSearchBlock,
@@ -44,17 +44,7 @@ function SearchResultVideo({ results, queryProps }: any) {
         <div className={styles.VideoContainer__grid}>
           {pageNumber > 1
             ? videos?.map((video) =>
-                video.map((video: VideoInterfaces) => (
-                  <div key={video.id}>
-                    <MemoizedChildComponent
-                      id={video.id}
-                      url={video.url}
-                      image={video.image}
-                    />
-                  </div>
-                ))
-              )
-            : results.videos.map((video: VideoInterfaces) => (
+              video.map((video: VideoInterfaces) => (
                 <div key={video.id}>
                   <MemoizedChildComponent
                     id={video.id}
@@ -62,7 +52,17 @@ function SearchResultVideo({ results, queryProps }: any) {
                     image={video.image}
                   />
                 </div>
-              ))}
+              ))
+            )
+            : results.videos.map((video: VideoInterfaces) => (
+              <div key={video.id}>
+                <MemoizedChildComponent
+                  id={video.id}
+                  url={video.url}
+                  image={video.image}
+                />
+              </div>
+            ))}
         </div>
         <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
           {loadingVideo && <StyledLinearProgress />}

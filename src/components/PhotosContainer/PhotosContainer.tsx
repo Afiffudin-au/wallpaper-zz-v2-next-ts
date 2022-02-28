@@ -3,7 +3,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import { IconButton } from '@material-ui/core'
 import CardPhoto, { CardPhotoOptions } from '../CardPhoto/CardPhoto'
 import styled from 'styled-components'
-import { useGetCuratedPhoto } from '../../customHooks/useGetCuratedPhoto/useGetCuratedPhoto'
+import useGetCuratedPhoto from '../../customHooks/useGetCuratedPhoto/useGetCuratedPhoto'
 import { useSelector } from 'react-redux'
 import {
   addPhotos,
@@ -81,25 +81,25 @@ export default function PhotosContainer({ dataPhotos }: any) {
       <PhotoContainerGrid className={styles.photoContainerGrid}>
         {pageNumber > 1
           ? photos?.map((photo: any) =>
-              photo.map((photo: PhotoOptions) => (
-                <div key={photo.id}>
-                  <MemoizedChildComponent
-                    id={photo.id}
-                    url={photo.url}
-                    imgPortrait={photo?.src?.portrait}
-                  />
-                </div>
-              ))
-            )
-          : ssrData.photos.map((photo: PhotoOptions) => (
+            photo.map((photo: PhotoOptions) => (
               <div key={photo.id}>
                 <MemoizedChildComponent
                   id={photo.id}
                   url={photo.url}
-                  imgPortrait={photo.src?.portrait}
+                  imgPortrait={photo?.src?.portrait}
                 />
               </div>
-            ))}
+            ))
+          )
+          : ssrData.photos.map((photo: PhotoOptions) => (
+            <div key={photo.id}>
+              <MemoizedChildComponent
+                id={photo.id}
+                url={photo.url}
+                imgPortrait={photo.src?.portrait}
+              />
+            </div>
+          ))}
       </PhotoContainerGrid>
       <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
         {loadingPhotos && <StyledLinearProgress />}

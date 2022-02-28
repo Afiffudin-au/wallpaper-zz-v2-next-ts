@@ -6,7 +6,7 @@ import CardPhoto, {
   CardPhotoOptions,
 } from '../../components/CardPhoto/CardPhoto'
 import Navbar from '../../components/Navbar/Navbar'
-import { useGetSearchPhotos } from '../../customHooks/useSearchPhoto/useSearchPhoto'
+import useGetSearchPhotos from '../../customHooks/useSearchPhoto/useSearchPhoto'
 import { useSelector } from 'react-redux'
 import {
   selectPhotoSearchBlock,
@@ -40,17 +40,7 @@ function SearchResult({ results, queryProps }: any) {
         <div className={styles.SearchPhotos__grid}>
           {pageNumber > 1
             ? photos?.map((photo) =>
-                photo.map((photo: PhotoOptions) => (
-                  <div key={photo.id}>
-                    <MemoizedChildComponent
-                      id={photo.id}
-                      url={photo.url}
-                      imgPortrait={photo?.src?.portrait}
-                    />
-                  </div>
-                ))
-              )
-            : results.photos.map((photo: PhotoOptions, index: number) => (
+              photo.map((photo: PhotoOptions) => (
                 <div key={photo.id}>
                   <MemoizedChildComponent
                     id={photo.id}
@@ -58,7 +48,17 @@ function SearchResult({ results, queryProps }: any) {
                     imgPortrait={photo?.src?.portrait}
                   />
                 </div>
-              ))}
+              ))
+            )
+            : results.photos.map((photo: PhotoOptions, index: number) => (
+              <div key={photo.id}>
+                <MemoizedChildComponent
+                  id={photo.id}
+                  url={photo.url}
+                  imgPortrait={photo?.src?.portrait}
+                />
+              </div>
+            ))}
         </div>
         <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
           {loadingPhotos && <StyledLinearProgress />}

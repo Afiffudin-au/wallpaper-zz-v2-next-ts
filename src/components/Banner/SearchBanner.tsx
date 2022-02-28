@@ -21,7 +21,7 @@ function SearchBanner() {
         removeCopyArray: true,
       })
     )
-    router.push(`/search-result/${query}`)
+    router.push(`/search-wallpaper/${query}`)
   }
   return (
     <form action=''>

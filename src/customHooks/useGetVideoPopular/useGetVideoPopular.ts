@@ -4,7 +4,7 @@ const client = createClient(
   '563492ad6f9170000100000170236dd5ebbc4d13936b1f6d2e44461c'
 )
 import { addVideos, VideoActionItems } from '../../redux/videoSlice'
-export function useGetVideoPopular() {
+export default function useGetVideoPopular() {
   const dispatch = useAppDispatch()
   const getVideoPopular = (pageNumber: number) => {
     dispatch(

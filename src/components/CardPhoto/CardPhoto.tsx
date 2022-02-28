@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useGetPhotoDetail } from '../../customHooks/useGetPhotoDetail/useGetPhotoDetail'
+import useGetPhotoDetail from '../../customHooks/useGetPhotoDetail/useGetPhotoDetail'
 import { Modal } from '@material-ui/core'
 import ModalDetail from '../ModalDetail/ModalDetail'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'

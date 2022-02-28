@@ -9,7 +9,7 @@ import {
   selectPhotoDetailsBlock,
   PhotosDetailBlockItem,
 } from '../../redux/photoSlice'
-import { useGetDownloadPhoto } from '../../customHooks/useGetDownloadPhoto/useGetDownloadPhoto'
+import useGetDownloadPhoto from '../../customHooks/useGetDownloadPhoto/useGetDownloadPhoto'
 function ModalDetail({ handleClose }: any) {
   const [previewUrl, setPreview] = useState<string>('')
   const { photos, loadingPhotos }: Partial<PhotosDetailBlockItem> = useSelector(

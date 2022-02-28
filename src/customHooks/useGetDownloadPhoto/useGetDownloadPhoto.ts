@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { saveAs } from 'file-saver'
 import Axios from 'axios'
-export function useGetDownloadPhoto() {
+export default function useGetDownloadPhoto() {
   const [loadingDownload, setLoadingDownload] = useState(false)
   const getDownloadPhoto = (url: string) => {
     setLoadingDownload(true)

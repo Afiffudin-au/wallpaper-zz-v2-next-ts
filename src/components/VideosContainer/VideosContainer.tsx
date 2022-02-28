@@ -3,7 +3,7 @@ import styles from './VideosContainer.module.scss'
 import { IconButton } from '@material-ui/core'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import CardVideo, { CardVideoOptions } from '../CardVideo/CardVideo'
-import { useGetVideoPopular } from '../../customHooks/useGetVideoPopular/useGetVideoPopular'
+import useGetVideoPopular from '../../customHooks/useGetVideoPopular/useGetVideoPopular'
 import { useSelector } from 'react-redux'
 import {
   selectVideos,
@@ -46,17 +46,7 @@ function VideoContainer({ dataVideo }: any) {
       <div className={styles.VideoContainer__grid}>
         {pageNumber > 1
           ? videos?.map((video) =>
-              video.map((video: VideoInterfaces) => (
-                <div key={video.id}>
-                  <MemoizedChildComponent
-                    id={video.id}
-                    url={video.url}
-                    image={video.image}
-                  />
-                </div>
-              ))
-            )
-          : dataVideo.videos.map((video: VideoInterfaces, index: number) => (
+            video.map((video: VideoInterfaces) => (
               <div key={video.id}>
                 <MemoizedChildComponent
                   id={video.id}
@@ -64,7 +54,17 @@ function VideoContainer({ dataVideo }: any) {
                   image={video.image}
                 />
               </div>
-            ))}
+            ))
+          )
+          : dataVideo.videos.map((video: VideoInterfaces, index: number) => (
+            <div key={video.id}>
+              <MemoizedChildComponent
+                id={video.id}
+                url={video.url}
+                image={video.image}
+              />
+            </div>
+          ))}
       </div>
       <div style={{ position: 'sticky', top: 0, marginBottom: '5px' }}>
         {loadingVideo && <StyledLinearProgress />}
